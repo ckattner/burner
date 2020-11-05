@@ -31,3 +31,5 @@ Style/TrailingCommaInHashLiteral:
 Style/TrailingCommaInArrayLiteral:
   Enabled: false
 
+Metrics/ParameterLists:
+  CountKeywordArgs: false

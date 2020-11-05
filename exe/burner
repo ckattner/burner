@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+#
+# Copyright (c) 2020-present, Blue Marble Payroll, LLC
+#
+# This source code is licensed under the MIT license found in the
+# LICENSE file in the root directory of this source tree.
+#
+
+require 'bundler/setup'
+require 'burner'
+
+if ARGV.empty?
+  warn('Usage: ./exe/burner package.yaml key=value key=value ...')
+  exit 2 # Do not return 1, that is reserved for hard errors.
+end
+
+# This should return exit code of 1 if it raises any hard errors.
+Burner::Cli.new(ARGV).execute

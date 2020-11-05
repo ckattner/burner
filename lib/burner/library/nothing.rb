@@ -8,5 +8,12 @@
 #
 
 module Burner
-  VERSION = '1.0.0-alpha.13'
+  module Library
+    # Do nothing.
+    #
+    # Note: this does not use Payload#registers.
+    class Nothing < Job
+      def perform(_output, _payload); end
+    end
+  end
 end

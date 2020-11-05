@@ -7,6 +7,7 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-module Burner
-  VERSION = '1.0.0-alpha.13'
-end
+require_relative 'modeling/attribute'
+require_relative 'modeling/attribute_renderer'
+require_relative 'modeling/key_index_mapping'
+require_relative 'modeling/validations'

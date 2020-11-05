@@ -4,6 +4,3 @@
 /coverage
 Gemfile.lock
 /pkg
-
-/spec/config/database.yaml
-/spec/db

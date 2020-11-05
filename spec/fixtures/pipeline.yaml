@@ -1,0 +1,13 @@
+---
+params:
+  name: Funky Chicken
+
+jobs:
+  - name: nothing
+  - name: bedtime
+    type: b/sleep
+    seconds: 0.5
+
+steps:
+  - nothing
+  - bedtime

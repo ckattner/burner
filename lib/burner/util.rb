@@ -7,6 +7,5 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-module Burner
-  VERSION = '1.0.0-alpha.13'
-end
+require_relative 'util/arrayable'
+require_relative 'util/string_template'
