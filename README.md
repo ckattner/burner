@@ -234,8 +234,10 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 #### Collection
 
 * **b/collection/arrays_to_objects** [mappings, register]: Convert an array of arrays to an array of objects.
+* **b/collection/coalesce** [register, grouped_register, key_mappings, keys, separator]: Merge two datasets together based on the key values of one dataset (array) with a grouped dataset (hash).
 * **b/collection/concatenate** [from_registers, to_register]: Concatenate each from_register's value and place the newly concatenated array into the to_register.  Note: this does not do any deep copying and should be assumed it is shallow copying all objects.
 * **b/collection/graph** [config, key, register]: Use [Hashematics](https://github.com/bluemarblepayroll/hashematics) to turn a flat array of objects into a deeply nested object tree.
+* **b/collection/group** [keys, register, separator]: Take a register's value (an array of objects) and group the objects by the specified keys.
 * **b/collection/objects_to_arrays** [mappings, register]: Convert an array of objects to an array of arrays.
 * **b/collection/shift** [amount, register]: Remove the first N number of elements from an array.
 * **b/collection/transform** [attributes, exclusive, separator, register]: Iterate over all objects and transform each key per the attribute transformers specifications.  If exclusive is set to false then the current object will be overridden/merged.  Separator can also be set for key path support.  This job uses [Realize](https://github.com/bluemarblepayroll/realize), which provides its own extendable value-transformation pipeline.

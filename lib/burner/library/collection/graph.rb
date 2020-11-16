@@ -19,7 +19,8 @@ module Burner
         attr_reader :key, :groups
 
         def initialize(
-          name:, key:,
+          name:,
+          key:,
           config: Hashematics::Configuration.new,
           register: DEFAULT_REGISTER
         )

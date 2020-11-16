@@ -10,4 +10,5 @@
 require_relative 'modeling/attribute'
 require_relative 'modeling/attribute_renderer'
 require_relative 'modeling/key_index_mapping'
+require_relative 'modeling/key_mapping'
 require_relative 'modeling/validations'

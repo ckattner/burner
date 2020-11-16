@@ -23,8 +23,10 @@ module Burner
     register 'b/sleep',                        Library::Sleep
 
     register 'b/collection/arrays_to_objects', Library::Collection::ArraysToObjects
+    register 'b/collection/coalesce',          Library::Collection::Coalesce
     register 'b/collection/concatenate',       Library::Collection::Concatenate
     register 'b/collection/graph',             Library::Collection::Graph
+    register 'b/collection/group',             Library::Collection::Group
     register 'b/collection/objects_to_arrays', Library::Collection::ObjectsToArrays
     register 'b/collection/shift',             Library::Collection::Shift
     register 'b/collection/transform',         Library::Collection::Transform
