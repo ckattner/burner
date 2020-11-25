@@ -11,8 +11,8 @@ require 'spec_helper'
 
 describe Burner::Library::Value::Copy do
   let(:value)         { 'Some Random Value' }
-  let(:string_out)    { StringOut.new }
-  let(:output)        { Burner::Output.new(outs: string_out) }
+  let(:string_out)    { StringIO.new }
+  let(:output)        { Burner::Output.new(outs: [string_out]) }
   let(:payload)       { Burner::Payload.new(registers: { from_register => value }) }
   let(:from_register) { 'register_a' }
   let(:to_register)   { 'register_b' }

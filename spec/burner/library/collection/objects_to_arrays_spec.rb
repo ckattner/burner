@@ -59,8 +59,8 @@ describe Burner::Library::Collection::ObjectsToArrays do
     ]
   end
 
-  let(:string_out) { StringOut.new }
-  let(:output)     { Burner::Output.new(outs: string_out) }
+  let(:string_out) { StringIO.new }
+  let(:output)     { Burner::Output.new(outs: [string_out]) }
   let(:register)   { 'register_a' }
 
   subject do

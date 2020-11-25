@@ -11,8 +11,8 @@ require 'spec_helper'
 
 describe Burner::Library::Deserialize::Yaml do
   let(:value)      { "---\nname: Captain Jack Sparrow\n" }
-  let(:string_out) { StringOut.new }
-  let(:output)     { Burner::Output.new(outs: string_out) }
+  let(:string_out) { StringIO.new }
+  let(:output)     { Burner::Output.new(outs: [string_out]) }
   let(:payload)    { Burner::Payload.new(registers: { register => value }) }
   let(:register)   { 'register_a' }
 

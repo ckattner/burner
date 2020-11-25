@@ -12,8 +12,8 @@ require 'spec_helper'
 describe Burner::Library::IO::Write do
   let(:path)       { File.join(TEMP_DIR, "#{SecureRandom.uuid}.txt") }
   let(:params)     { { path: path } }
-  let(:string_out) { StringOut.new }
-  let(:output)     { Burner::Output.new(outs: string_out) }
+  let(:string_out) { StringIO.new }
+  let(:output)     { Burner::Output.new(outs: [string_out]) }
   let(:value)      { 'I should be written to disk.' }
   let(:register)   { 'register_a' }
   let(:payload)    { Burner::Payload.new(params: params, registers: { register => value }) }

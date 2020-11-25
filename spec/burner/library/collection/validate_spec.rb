@@ -13,8 +13,8 @@ describe Burner::Library::Collection::Validate do
   let(:valid)            { { 'id' => '1', 'name' => nil } }
   let(:invalid)          { { 'id' => '', 'name' => 'funky' } }
   let(:all)              { [valid, invalid] }
-  let(:string_out)       { StringOut.new }
-  let(:output)           { Burner::Output.new(outs: string_out) }
+  let(:string_out)       { StringIO.new }
+  let(:output)           { Burner::Output.new(outs: [string_out]) }
   let(:register)         { 'register_a' }
   let(:invalid_register) { 'register_b' }
   let(:payload)          { Burner::Payload.new(registers: { register => all }) }

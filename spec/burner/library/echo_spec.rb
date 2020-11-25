@@ -10,8 +10,8 @@
 require 'spec_helper'
 
 describe Burner::Library::Echo do
-  let(:string_out) { StringOut.new }
-  let(:output)     { Burner::Output.new(outs: string_out) }
+  let(:string_out) { StringIO.new }
+  let(:output)     { Burner::Output.new(outs: [string_out]) }
   let(:payload)    { Burner::Payload.new(params: params, registers: registers) }
 
   subject { described_class.make(name: 'test', message: message) }
@@ -25,7 +25,7 @@ describe Burner::Library::Echo do
       it 'outputs templated message' do
         subject.perform(output, payload)
 
-        expect(string_out.read).to include('Hello, McBoaty!')
+        expect(string_out.string).to include('Hello, McBoaty!')
       end
     end
 
@@ -42,7 +42,7 @@ describe Burner::Library::Echo do
       it 'can access and string-template registers' do
         subject.perform(output, payload)
 
-        expect(string_out.read).to include('Hello, Boaty FaceMcBoat!')
+        expect(string_out.string).to include('Hello, Boaty FaceMcBoat!')
       end
     end
   end

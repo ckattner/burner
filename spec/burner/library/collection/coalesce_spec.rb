@@ -46,8 +46,8 @@ describe Burner::Library::Collection::Coalesce do
   end
 
   let(:keys)              { %w[status_code1 status_code2] }
-  let(:string_out)        { StringOut.new }
-  let(:output)            { Burner::Output.new(outs: string_out) }
+  let(:string_out)        { StringIO.new }
+  let(:output)            { Burner::Output.new(outs: [string_out]) }
   let(:patients_register) { 'register_a' }
   let(:statuses_register) { 'register_b' }
 

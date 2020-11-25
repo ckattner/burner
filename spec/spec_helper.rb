@@ -8,6 +8,7 @@
 #
 
 require 'pry'
+require 'stringio'
 
 unless ENV['DISABLE_SIMPLECOV'] == 'true'
   require 'simplecov'
@@ -29,23 +30,3 @@ end
 
 require 'rspec/expectations'
 require 'burner'
-
-# Utility class to capture output from Burner::Output calls.
-class StringOut
-  def initialize
-    @io = StringIO.new
-  end
-
-  def puts(msg)
-    tap { io.write("#{msg}\n") }
-  end
-
-  def read
-    io.rewind
-    io.read
-  end
-
-  private
-
-  attr_reader :io
-end

@@ -13,8 +13,8 @@ describe Burner::Library::Collection::Concatenate do
   let(:value1)      { [1] }
   let(:value2)      { nil }
   let(:value3)      { 3 }
-  let(:string_out)  { StringOut.new }
-  let(:output)      { Burner::Output.new(outs: string_out) }
+  let(:string_out)  { StringIO.new }
+  let(:output)      { Burner::Output.new(outs: [string_out]) }
   let(:register1)   { 'register1' }
   let(:register2)   { 'register2' }
   let(:register3)   { 'register3' }

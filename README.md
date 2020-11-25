@@ -91,38 +91,20 @@ Some notes:
 * The job's ID can be accessed using the `__id` key.
 * The current job's payload value can be accessed using the `__value` key.
 * Jobs can be re-used (just like the output_id and output_value jobs).
+* If steps is nil then all jobs will execute in their declared order.
 
 ### Capturing Feedback / Output
 
 By default, output will be emitted to `$stdout`.  You can add or change listeners by passing in optional values into Pipeline#execute.  For example, say we wanted to capture the output from our json-to-yaml example:
 
 ````ruby
-class StringOut
-  def initialize
-    @io = StringIO.new
-  end
-
-  def puts(msg)
-    tap { io.write("#{msg}\n") }
-  end
-
-  def read
-    io.rewind
-    io.read
-  end
-
-  private
-
-  attr_reader :io
-end
-
-string_out = StringOut.new
-output     = Burner::Output.new(outs: string_out)
-payload    = Burner::Payload.new(params: params)
+io      = StringIO.new
+output  = Burner::Output.new(outs: io)
+payload = Burner::Payload.new(params: params)
 
 Burner::Pipeline.make(pipeline).execute(output: output, payload: payload)
 
-log = string_out.read
+log = io.string
 ````
 
 The value of `log` should now look similar to:
@@ -238,9 +220,10 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 * **b/collection/concatenate** [from_registers, to_register]: Concatenate each from_register's value and place the newly concatenated array into the to_register.  Note: this does not do any deep copying and should be assumed it is shallow copying all objects.
 * **b/collection/graph** [config, key, register]: Use [Hashematics](https://github.com/bluemarblepayroll/hashematics) to turn a flat array of objects into a deeply nested object tree.
 * **b/collection/group** [keys, register, separator]: Take a register's value (an array of objects) and group the objects by the specified keys.
+* **b/collection/nested_aggregate** [register, key_mappings, key, separator]: Traverse a set of objects, resolving key's value for each object, optionally copying down key_mappings to the child records, then merging all the inner records together.
 * **b/collection/objects_to_arrays** [mappings, register]: Convert an array of objects to an array of arrays.
 * **b/collection/shift** [amount, register]: Remove the first N number of elements from an array.
-* **b/collection/transform** [attributes, exclusive, separator, register]: Iterate over all objects and transform each key per the attribute transformers specifications.  If exclusive is set to false then the current object will be overridden/merged.  Separator can also be set for key path support.  This job uses [Realize](https://github.com/bluemarblepayroll/realize), which provides its own extendable value-transformation pipeline.
+* **b/collection/transform** [attributes, exclusive, separator, register]: Iterate over all objects and transform each key per the attribute transformers specifications.  If exclusive is set to false then the current object will be overridden/merged.  Separator can also be set for key path support.  This job uses [Realize](https://github.com/bluemarblepayroll/realize), which provides its own extendable value-transformation pipeline.  If an attribute is not set with `explicit: true` then it will automatically start from the key's value from the record.  If `explicit: true` is started, then it will start from the record itself.
 * **b/collection/unpivot** [pivot_set, register]: Take an array of objects and unpivot specific sets of keys into rows.  Under the hood it uses [HashMath's Unpivot class](https://github.com/bluemarblepayroll/hash_math#unpivot-hash-key-coalescence-and-row-extrapolation).
 * **b/collection/validate** [invalid_register, join_char, message_key, register, separator, validations]: Take an array of objects, run it through each declared validator, and split the objects into two registers.  The valid objects will be split into the current register while the invalid ones will go into the invalid_register as declared.  Optional arguments, join_char and message_key, help determine the compiled error messages.  The separator option can be utilized to use dot-notation for validating keys.  See each validation's options by viewing their classes within the `lib/modeling/validations` directory.
 * **b/collection/values** [include_keys, register]: Take an array of objects and call `#values` on each object. If include_keys is true (it is false by default), then call `#keys` on the first object and inject that as a "header" object.

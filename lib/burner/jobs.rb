@@ -27,6 +27,7 @@ module Burner
     register 'b/collection/concatenate',       Library::Collection::Concatenate
     register 'b/collection/graph',             Library::Collection::Graph
     register 'b/collection/group',             Library::Collection::Group
+    register 'b/collection/nested_aggregate',  Library::Collection::NestedAggregate
     register 'b/collection/objects_to_arrays', Library::Collection::ObjectsToArrays
     register 'b/collection/shift',             Library::Collection::Shift
     register 'b/collection/transform',         Library::Collection::Transform

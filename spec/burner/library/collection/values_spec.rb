@@ -25,8 +25,8 @@ describe Burner::Library::Collection::Values do
     ]
   end
 
-  let(:string_out) { StringOut.new }
-  let(:output)     { Burner::Output.new(outs: string_out) }
+  let(:string_out) { StringIO.new }
+  let(:output)     { Burner::Output.new(outs: [string_out]) }
   let(:register)   { 'register_a' }
   let(:payload)    { Burner::Payload.new(registers: { register => objects }) }
 

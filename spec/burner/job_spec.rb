@@ -11,8 +11,8 @@ require 'spec_helper'
 
 describe Burner::Job do
   let(:params)     { { name: 'Funky' } }
-  let(:string_out) { StringOut.new }
-  let(:output)     { Burner::Output.new(outs: string_out) }
+  let(:string_out) { StringIO.new }
+  let(:output)     { Burner::Output.new(outs: [string_out]) }
   let(:payload)    { Burner::Payload.new(params: params) }
 
   subject { described_class.make(name: :test) }
@@ -27,7 +27,7 @@ describe Burner::Job do
     it 'outputs message' do
       subject.perform(output, payload)
 
-      expect(string_out.read).to include('#perform not implemented')
+      expect(string_out.string).to include('#perform not implemented')
     end
   end
 end

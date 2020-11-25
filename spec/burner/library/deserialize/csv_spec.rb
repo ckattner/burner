@@ -11,8 +11,8 @@ require 'spec_helper'
 
 describe Burner::Library::Deserialize::Csv do
   let(:value)      { "id,first,last\n1,captain,kangaroo\n2,twisted,sister\n" }
-  let(:string_out) { StringOut.new }
-  let(:output)     { Burner::Output.new(outs: string_out) }
+  let(:string_out) { StringIO.new }
+  let(:output)     { Burner::Output.new(outs: [string_out]) }
   let(:register)   { 'register_a' }
   let(:payload)    { Burner::Payload.new(registers: { register => value }) }
   let(:skip_first) { 0 }

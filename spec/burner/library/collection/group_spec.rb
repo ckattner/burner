@@ -28,8 +28,8 @@ describe Burner::Library::Collection::Group do
   end
 
   let(:keys)       { %w[code1 code2] }
-  let(:string_out) { StringOut.new }
-  let(:output)     { Burner::Output.new(outs: string_out) }
+  let(:string_out) { StringIO.new }
+  let(:output)     { Burner::Output.new(outs: [string_out]) }
   let(:register)   { 'register_b' }
 
   let(:payload) do

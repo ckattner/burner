@@ -12,8 +12,8 @@ require 'spec_helper'
 describe Burner::Library::IO::Read do
   let(:path)       { File.join('spec', 'fixtures', 'basic.txt') }
   let(:params)     { { path: path } }
-  let(:string_out) { StringOut.new }
-  let(:output)     { Burner::Output.new(outs: string_out) }
+  let(:string_out) { StringIO.new }
+  let(:output)     { Burner::Output.new(outs: [string_out]) }
   let(:payload)    { Burner::Payload.new(params: params) }
   let(:register)   { 'register_a' }
 

@@ -11,8 +11,8 @@ require 'spec_helper'
 
 describe Burner::Library::Sleep do
   let(:seconds)    { 0.2 }
-  let(:string_out) { StringOut.new }
-  let(:output)     { Burner::Output.new(outs: string_out) }
+  let(:string_out) { StringIO.new }
+  let(:output)     { Burner::Output.new(outs: [string_out]) }
   let(:payload)    { Burner::Payload.new }
 
   subject { described_class.make(name: 'test', seconds: seconds) }

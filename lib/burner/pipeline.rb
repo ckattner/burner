@@ -14,7 +14,8 @@ require_relative 'step'
 
 module Burner
   # The root package.  A Pipeline contains the job configurations along with the steps.  The steps
-  # referens jobs and tell you the order of the jobs to run.
+  # reference jobs and tell you the order of the jobs to run.  If steps is nil then all jobs
+  # will execute in their declared order.
   class Pipeline
     acts_as_hashable
 
@@ -23,14 +24,16 @@ module Burner
 
     attr_reader :steps
 
-    def initialize(jobs: [], steps: [])
+    def initialize(jobs: [], steps: nil)
       jobs = Jobs.array(jobs)
 
       assert_unique_job_names(jobs)
 
       jobs_by_name = jobs.map { |job| [job.name, job] }.to_h
 
-      @steps = Array(steps).map do |step_name|
+      step_names = steps ? Array(steps) : jobs_by_name.keys
+
+      @steps = step_names.map do |step_name|
         job = jobs_by_name[step_name.to_s]
 
         raise JobNotFoundError, "#{step_name} was not declared as a job" unless job

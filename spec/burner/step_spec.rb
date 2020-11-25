@@ -17,8 +17,8 @@ describe Burner::Step do
   end
 
   let(:job)        { MockJob.new(name: 'test') }
-  let(:string_out) { StringOut.new }
-  let(:output)     { Burner::Output.new(outs: string_out) }
+  let(:string_out) { StringIO.new }
+  let(:output)     { Burner::Output.new(outs: [string_out]) }
   let(:payload)    { Burner::Payload.new }
 
   subject { described_class.new(job) }
@@ -27,19 +27,19 @@ describe Burner::Step do
     it 'outputs the class name' do
       subject.perform(output, payload)
 
-      expect(string_out.read).to include(job.class.name)
+      expect(string_out.string).to include(job.class.name)
     end
 
     it 'outputs the name of the job' do
       subject.perform(output, payload)
 
-      expect(string_out.read).to include(job.name)
+      expect(string_out.string).to include(job.name)
     end
 
     it 'outputs completion message' do
       subject.perform(output, payload)
 
-      expect(string_out.read).to include('Completed in')
+      expect(string_out.string).to include('Completed in')
     end
   end
 end

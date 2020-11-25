@@ -9,18 +9,18 @@
 
 module Burner
   module Modeling
-    # Generic mapping from a key to another key.
+    # Generic mapping from a key to another key.  The argument 'to' is optional
+    # and if it is blank then the 'from' value will be used for the 'to' as well.
     class KeyMapping
       acts_as_hashable
 
       attr_reader :from, :to
 
-      def initialize(from:, to:)
+      def initialize(from:, to: '')
         raise ArgumentError, 'from is required' if from.to_s.empty?
-        raise ArgumentError, 'to is required'   if to.to_s.empty?
 
         @from = from.to_s
-        @to   = to.to_s
+        @to   = to.to_s.empty? ? @from : to.to_s
 
         freeze
       end
