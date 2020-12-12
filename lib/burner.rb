@@ -10,6 +10,7 @@
 require 'acts_as_hashable'
 require 'benchmark'
 require 'csv'
+require 'fileutils'
 require 'forwardable'
 require 'hash_math'
 require 'hashematics'
@@ -23,6 +24,7 @@ require 'time'
 require 'yaml'
 
 # Common/Shared
+require_relative 'burner/disks'
 require_relative 'burner/modeling'
 require_relative 'burner/side_effects'
 require_relative 'burner/util'

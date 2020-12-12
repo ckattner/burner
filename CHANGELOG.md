@@ -1,3 +1,8 @@
+# 1.3.0 (TBD)
+
+Additions:
+
+* Decoupled storage: `Burner::Disks` factory, `Burner::Disks::Local` reference implementation, and `b/io/*` `disk` option for configuring IO jobs to use custom disks.
 # 1.2.0 (November 25th, 2020)
 
 #### Enhancements:

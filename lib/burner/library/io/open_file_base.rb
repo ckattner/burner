@@ -10,16 +10,20 @@
 module Burner
   module Library
     module IO
-      # Common configuration/code for all IO Job subclasses.
-      class Base < JobWithRegister
-        attr_reader :path
+      # Common configuration/code for all IO Job subclasses that open a file.
+      class OpenFileBase < JobWithRegister
+        attr_reader :binary, :disk, :path
 
-        def initialize(name:, path:, register: DEFAULT_REGISTER)
+        def initialize(name:, path:, binary: false, disk: {}, register: DEFAULT_REGISTER)
           super(name: name, register: register)
 
           raise ArgumentError, 'path is required' if path.to_s.empty?
 
-          @path = path.to_s
+          @binary = binary || false
+          @disk   = Disks.make(disk)
+          @path   = path.to_s
+
+          freeze
         end
       end
     end

@@ -7,8 +7,6 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-require_relative 'base'
-
 module Burner
   module Library
     module IO
@@ -17,13 +15,14 @@ module Burner
       #
       # Note: this does not use Payload#registers.
       class Exist < Job
-        attr_reader :path, :short_circuit
+        attr_reader :disk, :path, :short_circuit
 
-        def initialize(name:, path:, short_circuit: false)
+        def initialize(name:, path:, disk: {}, short_circuit: false)
           super(name: name)
 
           raise ArgumentError, 'path is required' if path.to_s.empty?
 
+          @disk          = Disks.make(disk)
           @path          = path.to_s
           @short_circuit = short_circuit || false
         end
@@ -31,7 +30,7 @@ module Burner
         def perform(output, payload)
           compiled_path = job_string_template(path, output, payload)
 
-          exists = File.exist?(compiled_path)
+          exists = disk.exist?(compiled_path)
           verb   = exists ? 'does' : 'does not'
 
           output.detail("The path: #{compiled_path} #{verb} exist")

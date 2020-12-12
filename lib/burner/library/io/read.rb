@@ -7,7 +7,7 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-require_relative 'base'
+require_relative 'open_file_base'
 
 module Burner
   module Library
@@ -16,29 +16,13 @@ module Burner
       #
       # Expected Payload[register] input: nothing.
       # Payload[register] output: contents of the specified file.
-      class Read < Base
-        attr_reader :binary
-
-        def initialize(name:, path:, binary: false, register: DEFAULT_REGISTER)
-          super(name: name, path: path, register: register)
-
-          @binary = binary || false
-
-          freeze
-        end
-
+      class Read < OpenFileBase
         def perform(output, payload)
           compiled_path = job_string_template(path, output, payload)
 
           output.detail("Reading: #{compiled_path}")
 
-          payload[register] = File.open(compiled_path, mode, &:read)
-        end
-
-        private
-
-        def mode
-          binary ? 'rb' : 'r'
+          payload[register] = disk.read(compiled_path, binary: binary)
         end
       end
     end

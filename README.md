@@ -42,7 +42,7 @@ pipeline = {
     {
       name: :output_value,
       type: 'b/echo',
-      message: 'The current value is: {__value}'
+      message: 'The current value is: {__default_register}'
     },
     {
       name: :parse,
@@ -89,7 +89,7 @@ Some notes:
 
 * Some values are able to be string-interpolated using the provided Payload#params.  This allows for the passing runtime configuration/data into pipelines/jobs.
 * The job's ID can be accessed using the `__id` key.
-* The current job's payload value can be accessed using the `__value` key.
+* The current payload registers' values can be accessed using the `__<register_name>_register` key.
 * Jobs can be re-used (just like the output_id and output_value jobs).
 * If steps is nil then all jobs will execute in their declared order.
 
@@ -163,7 +163,7 @@ jobs:
 
   - name: output_value
     type: b/echo
-    message: 'The current value is: {__value}'
+    message: 'The current value is: {__default_register}'
 
   - name: parse
     type: b/deserialize/json
@@ -236,9 +236,11 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 
 #### IO
 
-* **b/io/exist** [path, short_circuit]: Check to see if a file exists. The path parameter can be interpolated using `Payload#params`.  If short_circuit was set to true (defaults to false) and the file does not exist then the pipeline will be short-circuited.
-* **b/io/read** [binary, path, register]: Read in a local file.  The path parameter can be interpolated using `Payload#params`.  If the contents are binary, pass in `binary: true` to open it up in binary+read mode.
-* **b/io/write** [binary, path, register]: Write to a local file.  The path parameter can be interpolated using `Payload#params`.  If the contents are binary, pass in `binary: true` to open it up in binary+write mode.
+By default all jobs will use the `Burner::Disks::Local` disk for its persistence.  But this is configurable by implementing and registering custom disk-based classes in the `Burner::Disks` factory.  For example: a consumer application may also want to interact with cloud-based storage providers and could leverage this as its job library instead of implementing custom jobs.
+
+* **b/io/exist** [disk, path, short_circuit]: Check to see if a file exists. The path parameter can be interpolated using `Payload#params`.  If short_circuit was set to true (defaults to false) and the file does not exist then the pipeline will be short-circuited.
+* **b/io/read** [binary, disk, path, register]: Read in a local file.  The path parameter can be interpolated using `Payload#params`.  If the contents are binary, pass in `binary: true` to open it up in binary+read mode.
+* **b/io/write** [binary, disk, path, register]: Write to a local file.  The path parameter can be interpolated using `Payload#params`.  If the contents are binary, pass in `binary: true` to open it up in binary+write mode.
 
 #### Serialization
 
@@ -299,7 +301,7 @@ pipeline = {
     {
       name: :output_value,
       type: 'b/echo',
-      message: 'The current value is: {__value}'
+      message: 'The current value is: {__default_register}'
     },
     {
       name: :parse,
