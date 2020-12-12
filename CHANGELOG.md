@@ -1,4 +1,4 @@
-# 1.3.0 (TBD)
+# 1.3.0 (December 11th, 2020)
 
 Additions:
 
