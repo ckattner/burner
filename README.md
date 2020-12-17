@@ -228,6 +228,10 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 * **b/collection/validate** [invalid_register, join_char, message_key, register, separator, validations]: Take an array of objects, run it through each declared validator, and split the objects into two registers.  The valid objects will be split into the current register while the invalid ones will go into the invalid_register as declared.  Optional arguments, join_char and message_key, help determine the compiled error messages.  The separator option can be utilized to use dot-notation for validating keys.  See each validation's options by viewing their classes within the `lib/modeling/validations` directory.
 * **b/collection/values** [include_keys, register]: Take an array of objects and call `#values` on each object. If include_keys is true (it is false by default), then call `#keys` on the first object and inject that as a "header" object.
 
+#### Compression
+
+* **b/compress/row_reader** [data_key, ignore_blank_path, ignore_blank_data, path_key, register, separator]: Iterates over an array of objects, extracts a path and data in each object, and creates a zip file.
+
 #### De-serialization
 
 * **b/deserialize/csv** [register]: Take a CSV string and de-serialize into object(s).  Currently it will return an array of arrays, with each nested array representing one row.
@@ -240,11 +244,12 @@ By default all jobs will use the `Burner::Disks::Local` disk for its persistence
 
 * **b/io/exist** [disk, path, short_circuit]: Check to see if a file exists. The path parameter can be interpolated using `Payload#params`.  If short_circuit was set to true (defaults to false) and the file does not exist then the pipeline will be short-circuited.
 * **b/io/read** [binary, disk, path, register]: Read in a local file.  The path parameter can be interpolated using `Payload#params`.  If the contents are binary, pass in `binary: true` to open it up in binary+read mode.
+* **b/io/row_reader** [data_key, disk, ignore_blank_path, ignore_file_not_found, path_key, register, separator]: Iterates over an array of objects, extracts a filepath from a key in each object, and attempts to load the file's content for each record.  The file's content will be stored at the specified data_key. By default missing paths or files will be treated as hard errors.  If you wish to ignore these then pass in true for ignore_blank_path and/or ignore_file_not_found.
 * **b/io/write** [binary, disk, path, register]: Write to a local file.  The path parameter can be interpolated using `Payload#params`.  If the contents are binary, pass in `binary: true` to open it up in binary+write mode.
 
 #### Serialization
 
-* **b/serialize/csv** [register]: Take an array of arrays and create a CSV.
+* **b/serialize/csv** [byte_order_mark, register]: Take an array of arrays and create a CSV.  You can optionally pre-pend a byte order mark, see Burner::Modeling::ByteOrderMark for acceptable options.
 * **b/serialize/json** [register]: Convert value to JSON.
 * **b/serialize/yaml** [register]: Convert value to YAML.
 

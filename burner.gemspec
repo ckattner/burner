@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
   s.add_dependency('hash_math', '~>1.2')
   s.add_dependency('objectable', '~>1.0')
   s.add_dependency('realize', '~>1.3')
+  s.add_dependency('rubyzip', '~>1.2')
   s.add_dependency('stringento', '~>2.1')
 
   s.add_development_dependency('guard-rspec', '~>4.7')

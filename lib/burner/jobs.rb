@@ -35,12 +35,15 @@ module Burner
     register 'b/collection/values',            Library::Collection::Values
     register 'b/collection/validate',          Library::Collection::Validate
 
+    register 'b/compress/row_reader',          Library::Compress::RowReader
+
     register 'b/deserialize/csv',              Library::Deserialize::Csv
     register 'b/deserialize/json',             Library::Deserialize::Json
     register 'b/deserialize/yaml',             Library::Deserialize::Yaml
 
     register 'b/io/exist',                     Library::IO::Exist
     register 'b/io/read',                      Library::IO::Read
+    register 'b/io/row_reader',                Library::IO::RowReader
     register 'b/io/write',                     Library::IO::Write
 
     register 'b/serialize/csv',                Library::Serialize::Csv

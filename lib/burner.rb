@@ -22,6 +22,7 @@ require 'singleton'
 require 'stringento'
 require 'time'
 require 'yaml'
+require 'zip'
 
 # Common/Shared
 require_relative 'burner/disks'

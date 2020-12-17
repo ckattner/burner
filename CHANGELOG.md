@@ -1,3 +1,13 @@
+# 1.4.0 (TBD)
+
+Additions:
+
+* byte_order_mark option for b/serialize/csv job
+
+Added Jobs:
+
+* b/compress/row_reader
+* b/io/row_reader
 # 1.3.0 (December 11th, 2020)
 
 Additions:

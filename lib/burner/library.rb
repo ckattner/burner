@@ -26,12 +26,15 @@ require_relative 'library/collection/unpivot'
 require_relative 'library/collection/validate'
 require_relative 'library/collection/values'
 
+require_relative 'library/compress/row_reader'
+
 require_relative 'library/deserialize/csv'
 require_relative 'library/deserialize/json'
 require_relative 'library/deserialize/yaml'
 
 require_relative 'library/io/exist'
 require_relative 'library/io/read'
+require_relative 'library/io/row_reader'
 require_relative 'library/io/write'
 
 require_relative 'library/serialize/csv'
