@@ -25,6 +25,7 @@ require_relative 'library/collection/transform'
 require_relative 'library/collection/unpivot'
 require_relative 'library/collection/validate'
 require_relative 'library/collection/values'
+require_relative 'library/collection/zip'
 
 require_relative 'library/compress/row_reader'
 

@@ -1,3 +1,9 @@
+
+# 1.5.0 (TBD)
+
+Added Jobs:
+
+* b/collection/zip
 # 1.4.0 (December 17th, 2020)
 
 Additions:

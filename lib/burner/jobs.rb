@@ -34,6 +34,7 @@ module Burner
     register 'b/collection/unpivot',           Library::Collection::Unpivot
     register 'b/collection/values',            Library::Collection::Values
     register 'b/collection/validate',          Library::Collection::Validate
+    register 'b/collection/zip',               Library::Collection::Zip
 
     register 'b/compress/row_reader',          Library::Compress::RowReader
 
