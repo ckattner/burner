@@ -1,5 +1,5 @@
 
-# 1.5.0 (TBD)
+# 1.5.0 (December 21st, 2020)
 
 Added Jobs:
 

@@ -8,5 +8,5 @@
 #
 
 module Burner
-  VERSION = '1.5.0-alpha'
+  VERSION = '1.5.0'
 end
