@@ -1,5 +1,5 @@
 
-# 1.6.0 (TBD)
+# 1.6.0 (December 22nd, 2020)
 
 Additions:
 
