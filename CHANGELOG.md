@@ -1,4 +1,9 @@
 
+# 1.6.0 (TBD)
+
+Additions:
+
+* b/io/write now provides an optional `supress_side_effect` option.
 # 1.5.0 (December 21st, 2020)
 
 Added Jobs:

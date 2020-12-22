@@ -246,7 +246,7 @@ By default all jobs will use the `Burner::Disks::Local` disk for its persistence
 * **b/io/exist** [disk, path, short_circuit]: Check to see if a file exists. The path parameter can be interpolated using `Payload#params`.  If short_circuit was set to true (defaults to false) and the file does not exist then the pipeline will be short-circuited.
 * **b/io/read** [binary, disk, path, register]: Read in a local file.  The path parameter can be interpolated using `Payload#params`.  If the contents are binary, pass in `binary: true` to open it up in binary+read mode.
 * **b/io/row_reader** [data_key, disk, ignore_blank_path, ignore_file_not_found, path_key, register, separator]: Iterates over an array of objects, extracts a filepath from a key in each object, and attempts to load the file's content for each record.  The file's content will be stored at the specified data_key. By default missing paths or files will be treated as hard errors.  If you wish to ignore these then pass in true for ignore_blank_path and/or ignore_file_not_found.
-* **b/io/write** [binary, disk, path, register]: Write to a local file.  The path parameter can be interpolated using `Payload#params`.  If the contents are binary, pass in `binary: true` to open it up in binary+write mode.
+* **b/io/write** [binary, disk, path, register, supress_side_effect]: Write to a local file.  The path parameter can be interpolated using `Payload#params`.  If the contents are binary, pass in `binary: true` to open it up in binary+write mode.  By default, written files are also logged as WrittenFile instances to the Payload#side_effects array.  You can pass in supress_side_effect: true to disable this behavior.
 
 #### Serialization
 

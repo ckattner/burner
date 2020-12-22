@@ -10,15 +10,26 @@
 require 'spec_helper'
 
 describe Burner::Library::IO::Write do
-  let(:path)       { File.join(TEMP_DIR, "#{SecureRandom.uuid}.txt") }
-  let(:params)     { { path: path } }
-  let(:string_out) { StringIO.new }
-  let(:output)     { Burner::Output.new(outs: [string_out]) }
-  let(:value)      { 'I should be written to disk.' }
-  let(:register)   { 'register_a' }
-  let(:payload)    { Burner::Payload.new(params: params, registers: { register => value }) }
+  let(:path)                { File.join(TEMP_DIR, "#{SecureRandom.uuid}.txt") }
+  let(:params)              { { path: path } }
+  let(:string_out)          { StringIO.new }
+  let(:output)              { Burner::Output.new(outs: [string_out]) }
+  let(:value)               { 'I should be written to disk.' }
+  let(:register)            { 'register_a' }
+  let(:supress_side_effect) { false }
 
-  subject { described_class.make(name: 'test', path: '{path}', register: register) }
+  let(:payload) do
+    Burner::Payload.new(params: params, registers: { register => value })
+  end
+
+  subject do
+    described_class.make(
+      name: 'test',
+      path: '{path}',
+      register: register,
+      supress_side_effect: supress_side_effect
+    )
+  end
 
   describe '#perform' do
     before(:each) do
@@ -35,6 +46,14 @@ describe Burner::Library::IO::Write do
       expect(payload.side_effects.length).to                  eq(1)
       expect(payload.side_effects.first.logical_filename).to  eq(path)
       expect(payload.side_effects.first.physical_filename).to eq(path)
+    end
+
+    context 'when supressing side effect' do
+      let(:supress_side_effect) { true }
+
+      it 'does not add to Payload#side_effects' do
+        expect(payload.side_effects).to be_empty
+      end
     end
   end
 end
