@@ -1,5 +1,5 @@
 
-# 1.7.0 (TBD)
+# 1.7.0 (January 22nd, 2021)
 
 Added Jobs:
 
@@ -10,6 +10,10 @@ Added Jobs:
 Enhanced Jobs:
 
 * b/collection/coalesce and b/collection/group now support the notion of case and type-insensitivity (insensitive option).
+
+Changes:
+
+* Job names derived from Burner::Job are now optional.  Pipelines themselves now can handle jobs without names.
 
 # 1.6.0 (December 22nd, 2020)
 
