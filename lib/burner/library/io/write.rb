@@ -22,10 +22,10 @@ module Burner
         attr_reader :supress_side_effect
 
         def initialize(
-          name:,
           path:,
           binary: false,
           disk: {},
+          name: '',
           register: DEFAULT_REGISTER,
           supress_side_effect: false
         )

@@ -55,7 +55,7 @@ module Burner
       class ArraysToObjects < JobWithRegister
         attr_reader :mappings
 
-        def initialize(name:, mappings: [], register: DEFAULT_REGISTER)
+        def initialize(mappings: [], name: '', register: DEFAULT_REGISTER)
           super(name: name, register: register)
 
           @mappings = Modeling::KeyIndexMapping.array(mappings)

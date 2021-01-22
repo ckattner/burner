@@ -35,12 +35,12 @@ module Burner
                     :resolver
 
         def initialize(
-          name:,
           binary: false,
           data_key: DEFAULT_DATA_KEY,
           disk: {},
           ignore_blank_path: false,
           ignore_file_not_found: false,
+          name: '',
           path_key: DEFAULT_PATH_KEY,
           register: DEFAULT_REGISTER,
           separator: ''

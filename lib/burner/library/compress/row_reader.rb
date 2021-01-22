@@ -33,10 +33,10 @@ module Burner
                     :resolver
 
         def initialize(
-          name:,
           data_key: DEFAULT_DATA_KEY,
           ignore_blank_data: false,
           ignore_blank_path: false,
+          name: '',
           path_key: DEFAULT_PATH_KEY,
           register: DEFAULT_REGISTER,
           separator: ''

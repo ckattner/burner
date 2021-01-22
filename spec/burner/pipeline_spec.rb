@@ -39,43 +39,11 @@ describe Burner::Pipeline do
 
   subject { described_class.make(jobs: jobs, steps: steps) }
 
-  describe '#initialize' do
-    it 'raises a DuplicateJobNameError if jobs have the same name' do
-      jobs = [
-        { name: :nothing1 },
-        { name: :nothing2 },
-        { name: :nothing3 },
-        { name: :nothing3 }
-      ]
-
-      error_constant = Burner::Pipeline::DuplicateJobNameError
-      expect { described_class.make(jobs: jobs) }.to raise_error(error_constant)
-    end
-  end
-
   context 'when steps is not passed in (nil)' do
     subject { described_class.make(jobs: jobs) }
 
     it 'uses all declared jobs in their positional order.' do
       expect(subject.steps.map(&:name)).to eq(steps.map(&:to_s))
-    end
-  end
-
-  context 'when a step does not correspond to a job' do
-    let(:jobs) do
-      [
-        { name: :nothing }
-      ]
-    end
-
-    let(:steps) do
-      %i[nada]
-    end
-
-    it 'raises JobNotFoundError' do
-      error = Burner::Pipeline::JobNotFoundError
-
-      expect { described_class.make(jobs: jobs, steps: steps) }.to raise_error(error)
     end
   end
 
@@ -164,6 +132,52 @@ describe Burner::Pipeline do
           convert
           output_value
           write
+        ]
+      }
+
+      params = {
+        input_file: File.join('spec', 'fixtures', 'input.json'),
+        output_file: File.join(TEMP_DIR, "#{SecureRandom.uuid}.yaml")
+      }
+
+      payload = Burner::Payload.new(params: params)
+
+      Burner::Pipeline.make(pipeline).execute(output: output, payload: payload)
+
+      actual = File.open(params[:output_file], 'r', &:read)
+
+      expect(actual).to eq("---\nname: Funky Chicken!\n")
+    end
+
+    specify 'json-to-yaml converter' do
+      pipeline = {
+        jobs: [
+          {
+            type: 'b/io/read',
+            path: '{input_file}'
+          },
+          {
+            type: 'b/echo',
+            message: 'The job id is: {__id}'
+          },
+          {
+            type: 'b/echo',
+            message: 'The current value is: {__value}'
+          },
+          {
+            type: 'b/deserialize/json'
+          },
+          {
+            type: 'b/serialize/yaml'
+          },
+          {
+            type: 'b/echo',
+            message: 'The current value is: {__value}'
+          },
+          {
+            type: 'b/io/write',
+            path: '{output_file}'
+          }
         ]
       }
 

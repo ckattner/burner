@@ -29,10 +29,10 @@ module Burner
                     :validations
 
         def initialize(
-          name:,
           invalid_register: DEFAULT_INVALID_REGISTER,
           join_char: DEFAULT_JOIN_CHAR,
           message_key: DEFAULT_MESSAGE_KEY,
+          name: '',
           register: DEFAULT_REGISTER,
           separator: '',
           validations: []

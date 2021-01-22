@@ -17,7 +17,7 @@ module Burner
       class Exist < Job
         attr_reader :disk, :path, :short_circuit
 
-        def initialize(name:, path:, disk: {}, short_circuit: false)
+        def initialize(path:, disk: {}, name: '', short_circuit: false)
           super(name: name)
 
           raise ArgumentError, 'path is required' if path.to_s.empty?

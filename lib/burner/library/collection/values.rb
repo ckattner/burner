@@ -19,7 +19,7 @@ module Burner
       class Values < JobWithRegister
         attr_reader :include_keys
 
-        def initialize(name:, include_keys: false, register: DEFAULT_REGISTER)
+        def initialize(include_keys: false, name: '', register: DEFAULT_REGISTER)
           super(name: name, register: register)
 
           @include_keys = include_keys || false

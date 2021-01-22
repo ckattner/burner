@@ -17,7 +17,7 @@ module Burner
       class Static < JobWithRegister
         attr_reader :value
 
-        def initialize(name:, register: DEFAULT_REGISTER, value: nil)
+        def initialize(name: '', register: DEFAULT_REGISTER, value: nil)
           super(name: name, register: register)
 
           @value = value

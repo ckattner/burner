@@ -58,7 +58,7 @@ module Burner
         # nested hashes then set separator to '.'.  For more information, see the underlying
         # library that supports this dot-notation concept:
         #   https://github.com/bluemarblepayroll/objectable
-        def initialize(name:, mappings: [], register: DEFAULT_REGISTER, separator: '')
+        def initialize(mappings: [], name: '', register: DEFAULT_REGISTER, separator: '')
           super(name: name, register: register)
 
           @mappings = Modeling::KeyIndexMapping.array(mappings)

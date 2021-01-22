@@ -28,6 +28,7 @@ module Burner
     register 'b/collection/graph',             Library::Collection::Graph
     register 'b/collection/group',             Library::Collection::Group
     register 'b/collection/nested_aggregate',  Library::Collection::NestedAggregate
+    register 'b/collection/number',            Library::Collection::Number
     register 'b/collection/objects_to_arrays', Library::Collection::ObjectsToArrays
     register 'b/collection/shift',             Library::Collection::Shift
     register 'b/collection/transform',         Library::Collection::Transform
@@ -52,6 +53,8 @@ module Burner
     register 'b/serialize/yaml',               Library::Serialize::Yaml
 
     register 'b/value/copy',                   Library::Value::Copy
+    register 'b/value/nest',                   Library::Value::Nest
     register 'b/value/static',                 Library::Value::Static
+    register 'b/value/transform',              Library::Value::Transform
   end
 end

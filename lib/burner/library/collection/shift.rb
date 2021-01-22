@@ -23,7 +23,7 @@ module Burner
 
         attr_reader :amount
 
-        def initialize(name:, amount: DEFAULT_AMOUNT, register: DEFAULT_REGISTER)
+        def initialize(amount: DEFAULT_AMOUNT, name: '', register: DEFAULT_REGISTER)
           super(name: name, register: register)
 
           @amount = amount.to_i

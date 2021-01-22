@@ -18,19 +18,27 @@ module Burner
       # Expected Payload[register] input: array of objects.
       # Payload[register] output: array of objects.
       class Coalesce < JobWithRegister
-        attr_reader :grouped_register, :key_mappings, :keys, :resolver
+        include Util::Keyable
+
+        attr_reader :grouped_register,
+                    :insensitive,
+                    :key_mappings,
+                    :keys,
+                    :resolver
 
         def initialize(
-          name:,
           grouped_register:,
+          insensitive: false,
           key_mappings: [],
           keys: [],
+          name: '',
           register: DEFAULT_REGISTER,
           separator: ''
         )
           super(name: name, register: register)
 
           @grouped_register = grouped_register.to_s
+          @insensitive      = insensitive || false
           @key_mappings     = Modeling::KeyMapping.array(key_mappings)
           @keys             = Array(keys)
           @resolver         = Objectable.resolver(separator: separator.to_s)
@@ -41,13 +49,14 @@ module Burner
         end
 
         def perform(output, payload)
-          payload[register] = array(payload[register])
-          count             = payload[register].length
+          ensure_array(payload)
+
+          count = payload[register].length
 
           output.detail("Coalescing based on key(s): #{keys} for #{count} records(s)")
 
           payload[register].each do |record|
-            key    = make_key(record)
+            key    = make_key(record, keys, resolver, insensitive)
             lookup = find_lookup(payload, key)
 
             key_mappings.each do |key_mapping|
@@ -62,10 +71,6 @@ module Burner
 
         def find_lookup(payload, key)
           (payload[grouped_register] || {})[key] || {}
-        end
-
-        def make_key(record)
-          keys.map { |key| resolver.get(record, key) }
         end
       end
     end

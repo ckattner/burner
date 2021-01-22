@@ -18,9 +18,7 @@ module Burner
 
     attr_reader :name
 
-    def initialize(name:)
-      raise ArgumentError, 'name is required' if name.to_s.empty?
-
+    def initialize(name: '')
       @name = name.to_s
     end
 

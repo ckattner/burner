@@ -21,7 +21,7 @@ module Burner
       class NestedAggregate < JobWithRegister
         attr_reader :key, :key_mappings, :resolver
 
-        def initialize(name:, key:, key_mappings: [], register: DEFAULT_REGISTER, separator: '')
+        def initialize(key:, key_mappings: [], name: '', register: DEFAULT_REGISTER, separator: '')
           super(name: name, register: register)
 
           raise ArgumentError, 'key is required' if key.to_s.empty?

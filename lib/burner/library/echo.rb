@@ -15,7 +15,7 @@ module Burner
     class Echo < Job
       attr_reader :message
 
-      def initialize(name:, message: '')
+      def initialize(message: '', name: '')
         super(name: name)
 
         @message = message.to_s

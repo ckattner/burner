@@ -19,7 +19,7 @@ module Burner
       class Copy < Job
         attr_reader :from_register, :to_register
 
-        def initialize(name:, to_register: DEFAULT_REGISTER, from_register: DEFAULT_REGISTER)
+        def initialize(from_register: DEFAULT_REGISTER, name: '', to_register: DEFAULT_REGISTER)
           super(name: name)
 
           @from_register = from_register.to_s

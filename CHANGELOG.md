@@ -1,4 +1,16 @@
 
+# 1.7.0 (TBD)
+
+Added Jobs:
+
+* b/collection/number
+* b/value/nest
+* b/value/transform
+
+Enhanced Jobs:
+
+* b/collection/coalesce and b/collection/group now support the notion of case and type-insensitivity (insensitive option).
+
 # 1.6.0 (December 22nd, 2020)
 
 Additions:

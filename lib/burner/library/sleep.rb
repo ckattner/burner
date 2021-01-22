@@ -15,7 +15,7 @@ module Burner
     class Sleep < Job
       attr_reader :seconds
 
-      def initialize(name:, seconds: 0)
+      def initialize(name: '', seconds: 0)
         super(name: name)
 
         @seconds = seconds.to_f

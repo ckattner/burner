@@ -28,9 +28,9 @@ module Burner
                     :resolver
 
         def initialize(
-          name:,
           attributes: [],
           exclusive: false,
+          name: '',
           register: DEFAULT_REGISTER,
           separator: BLANK
         )

@@ -20,7 +20,7 @@ module Burner
       class Yaml < JobWithRegister
         attr_reader :safe
 
-        def initialize(name:, register: DEFAULT_REGISTER, safe: true)
+        def initialize(name: '', register: DEFAULT_REGISTER, safe: true)
           super(name: name, register: register)
 
           @safe = safe

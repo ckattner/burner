@@ -20,7 +20,7 @@ module Burner
         attr_reader :unpivot
 
         def initialize(
-          name:,
+          name: '',
           pivot_set: HashMath::Unpivot::PivotSet.new,
           register: DEFAULT_REGISTER
         )

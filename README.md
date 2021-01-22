@@ -93,6 +93,54 @@ Some notes:
 * Jobs can be re-used (just like the output_id and output_value jobs).
 * If steps is nil then all jobs will execute in their declared order.
 
+### Omitting Job Names and Steps
+
+Job names are optional, but steps can only correspond to named jobs.  This means if steps is declared then anonymous jobs will have no way to be executed.  Here is the same pipeline as above, but without job names and steps:
+
+````ruby
+pipeline = {
+  jobs: [
+    {
+      type: 'b/io/read',
+      path: '{input_file}'
+    },
+    {
+      type: 'b/echo',
+      message: 'The job id is: {__id}'
+    },
+    {
+      type: 'b/echo',
+      message: 'The current value is: {__default_register}'
+    },
+    {
+      type: 'b/deserialize/json'
+    },
+    {
+      type: 'b/serialize/yaml'
+    },
+    {
+      type: 'b/echo',
+      message: 'The current value is: {__default_register}'
+    },
+    {
+      type: 'b/io/write',
+      path: '{output_file}'
+    }
+  ]
+}
+
+params = {
+  input_file: 'input.json',
+  output_file: 'output.yaml'
+}
+
+payload = Burner::Payload.new(params: params)
+
+Burner::Pipeline.make(pipeline).execute(payload: payload)
+````
+
+Like everything in software, there are trade-offs to the above two equivalent pipelines.  The former (one with steps and job names) has less jobs but is more verbose.  The latter (without steps and job names) has more jobs but reads terser.  Names also can aid in self-documenting your code/configuration so it may be a good idea to enforce at least names are used.
+
 ### Capturing Feedback / Output
 
 By default, output will be emitted to `$stdout`.  You can add or change listeners by passing in optional values into Pipeline#execute.  For example, say we wanted to capture the output from our json-to-yaml example:
@@ -216,11 +264,12 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 #### Collection
 
 * **b/collection/arrays_to_objects** [mappings, register]: Convert an array of arrays to an array of objects.
-* **b/collection/coalesce** [register, grouped_register, key_mappings, keys, separator]: Merge two datasets together based on the key values of one dataset (array) with a grouped dataset (hash).
+* **b/collection/coalesce** [grouped_register, insensitive, key_mappings, keys, register, separator]: Merge two datasets together based on the key values of one dataset (array) with a grouped dataset (hash).  If insensitive (false by default) is true then each key's value will be converted/coerced to a lowercase string.
 * **b/collection/concatenate** [from_registers, to_register]: Concatenate each from_register's value and place the newly concatenated array into the to_register.  Note: this does not do any deep copying and should be assumed it is shallow copying all objects.
 * **b/collection/graph** [config, key, register]: Use [Hashematics](https://github.com/bluemarblepayroll/hashematics) to turn a flat array of objects into a deeply nested object tree.
-* **b/collection/group** [keys, register, separator]: Take a register's value (an array of objects) and group the objects by the specified keys.
+* **b/collection/group** [insensitive, keys, register, separator]: Take a register's value (an array of objects) and group the objects by the specified keys.  If insensitive (false by default) is true then each key's value will be converted/coerced to a lowercase string.
 * **b/collection/nested_aggregate** [register, key_mappings, key, separator]: Traverse a set of objects, resolving key's value for each object, optionally copying down key_mappings to the child records, then merging all the inner records together.
+* **b/collection/number** [key, register, separator, start_at]: This job can iterate over a set of records and sequence them (set the specified key to a sequential index value.)
 * **b/collection/objects_to_arrays** [mappings, register]: Convert an array of objects to an array of arrays.
 * **b/collection/shift** [amount, register]: Remove the first N number of elements from an array.
 * **b/collection/transform** [attributes, exclusive, separator, register]: Iterate over all objects and transform each key per the attribute transformers specifications.  If exclusive is set to false then the current object will be overridden/merged.  Separator can also be set for key path support.  This job uses [Realize](https://github.com/bluemarblepayroll/realize), which provides its own extendable value-transformation pipeline.  If an attribute is not set with `explicit: true` then it will automatically start from the key's value from the record.  If `explicit: true` is started, then it will start from the record itself.
@@ -257,7 +306,9 @@ By default all jobs will use the `Burner::Disks::Local` disk for its persistence
 #### Value
 
 * **b/value/copy** [from_register, to_register]: Copy from_register's value into the to_register.  Note: this does not do any deep copying and should be assumed it is shallow copying all objects.
+* **b/value/nest** [key, register]: This job will nest the current value within a new outer hash.  The specified key passed in will be the corresponding new hash key entry for the existing value.
 * **b/value/static** [register, value]: Set the value to any arbitrary value.
+* **b/value/transform** [register, separator, transformers]: Transform the current value of the register through a Realize::Pipeline.  This will transform the entire value, as opposed to the b/collection/transform job, which will iterate over each row/record in a dataset and transform each row/record.
 
 #### General
 

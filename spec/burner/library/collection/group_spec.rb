@@ -14,13 +14,13 @@ describe Burner::Library::Collection::Group do
     [
       {
         'status_id' => 1,
-        'code1' => 'a',
+        'code1' => 'A',
         'code2' => 'z',
         'priority' => 100
       },
       {
         'status_id' => 2,
-        'code1' => 'b',
+        'code1' => :b,
         'code2' => 'y',
         'priority' => 200
       }
@@ -31,6 +31,7 @@ describe Burner::Library::Collection::Group do
   let(:string_out) { StringIO.new }
   let(:output)     { Burner::Output.new(outs: [string_out]) }
   let(:register)   { 'register_b' }
+  let(:insensitive) { false }
 
   let(:payload) do
     Burner::Payload.new(
@@ -42,6 +43,7 @@ describe Burner::Library::Collection::Group do
 
   subject do
     described_class.make(
+      insensitive: insensitive,
       keys: keys,
       name: 'test',
       register: register
@@ -55,21 +57,44 @@ describe Burner::Library::Collection::Group do
 
     it 'groups by keys' do
       expected = {
-        %w[a z] => {
+        %w[A z] => {
           'status_id' => 1,
-          'code1' => 'a',
+          'code1' => 'A',
           'code2' => 'z',
           'priority' => 100
         },
-        %w[b y] => {
+        [:b, 'y'] => {
           'status_id' => 2,
-          'code1' => 'b',
+          'code1' => :b,
           'code2' => 'y',
           'priority' => 200
         }
       }
 
       expect(payload[register]).to eq(expected)
+    end
+
+    context 'when insensitive' do
+      let(:insensitive) { true }
+
+      specify 'all keys are arrays of downcased strings' do
+        expected = {
+          %w[a z] => {
+            'status_id' => 1,
+            'code1' => 'A',
+            'code2' => 'z',
+            'priority' => 100
+          },
+          %w[b y] => {
+            'status_id' => 2,
+            'code1' => :b,
+            'code2' => 'y',
+            'priority' => 200
+          }
+        }
+
+        expect(payload[register]).to eq(expected)
+      end
     end
   end
 end

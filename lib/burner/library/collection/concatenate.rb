@@ -18,7 +18,7 @@ module Burner
       class Concatenate < Job
         attr_reader :from_registers, :to_register
 
-        def initialize(name:, from_registers: [], to_register: DEFAULT_REGISTER)
+        def initialize(from_registers: [], name: '', to_register: DEFAULT_REGISTER)
           super(name: name)
 
           @from_registers = Array(from_registers)

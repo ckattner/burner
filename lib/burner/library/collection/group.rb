@@ -16,6 +16,12 @@ module Burner
       # It is worth noting that the resulting hashes values are singular objects and not an array
       # like Ruby's Enumerable#group_by method.
       #
+      # If the insensitive option is set as true then each key's value will be coerced as
+      # a lowercase string.  This can help provide two types of insensitivity: case and type
+      # insensitivity.  This may be appropriate in some places but not others.  If any other
+      # value coercion is needed then another option would be to first transform the records
+      # before grouping them.
+      #
       # An example of this specific job:
       #
       # input: [{ id: 1, code: 'a' }, { id: 2, code: 'b' }]
@@ -25,18 +31,22 @@ module Burner
       # Expected Payload[register] input: array of objects.
       # Payload[register] output: hash.
       class Group < JobWithRegister
-        attr_reader :keys, :resolver
+        include Util::Keyable
+
+        attr_reader :insensitive, :keys, :resolver
 
         def initialize(
-          name:,
+          insensitive: false,
           keys: [],
+          name: '',
           register: DEFAULT_REGISTER,
           separator: ''
         )
           super(name: name, register: register)
 
-          @keys     = Array(keys)
-          @resolver = Objectable.resolver(separator: separator.to_s)
+          @insensitive = insensitive || false
+          @keys        = Array(keys)
+          @resolver    = Objectable.resolver(separator: separator.to_s)
 
           raise ArgumentError, 'at least one key is required' if @keys.empty?
 
@@ -50,17 +60,11 @@ module Burner
           output.detail("Grouping based on key(s): #{keys} for #{count} records(s)")
 
           grouped_records = payload[register].each_with_object({}) do |record, memo|
-            key       = make_key(record)
+            key       = make_key(record, keys, resolver, insensitive)
             memo[key] = record
           end
 
           payload[register] = grouped_records
-        end
-
-        private
-
-        def make_key(record)
-          keys.map { |key| resolver.get(record, key) }
         end
       end
     end

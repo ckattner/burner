@@ -25,9 +25,9 @@ module Burner
         attr_reader :base_register, :with_register
 
         def initialize(
-          name:,
           with_register:,
           base_register: DEFAULT_REGISTER,
+          name: '',
           register: DEFAULT_REGISTER
         )
           super(name: name, register: register)

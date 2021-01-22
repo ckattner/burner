@@ -18,7 +18,7 @@ module Burner
       class Csv < JobWithRegister
         attr_reader :byte_order_mark
 
-        def initialize(name:, byte_order_mark: nil, register: DEFAULT_REGISTER)
+        def initialize(byte_order_mark: nil, name: '', register: DEFAULT_REGISTER)
           super(name: name, register: register)
 
           @byte_order_mark = Modeling::ByteOrderMark.resolve(byte_order_mark)
