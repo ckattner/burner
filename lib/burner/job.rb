@@ -46,15 +46,9 @@ module Burner
     protected
 
     def job_string_template(expression, output, payload)
-      templatable_params = payload.params
-                                  .merge(__id: output.id)
-                                  .merge(templatable_register_values(payload))
+      templatable_params = payload.params_and_registers_hash.merge(__id: output.id)
 
       Util::StringTemplate.instance.evaluate(expression, templatable_params)
-    end
-
-    def templatable_register_values(payload)
-      payload.registers.transform_keys { |key| "__#{key}_register" }
     end
   end
 end

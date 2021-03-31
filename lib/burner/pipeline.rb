@@ -55,7 +55,7 @@ module Burner
     private
 
     def output_params(params, output)
-      if params.keys.any?
+      if params.any?
         output.write('Parameters:')
       else
         output.write('No parameters passed in.')

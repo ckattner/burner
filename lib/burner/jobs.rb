@@ -48,6 +48,9 @@ module Burner
     register 'b/io/row_reader',                Library::IO::RowReader
     register 'b/io/write',                     Library::IO::Write
 
+    register 'b/param/from_register',          Library::Param::FromRegister
+    register 'b/param/to_register',            Library::Param::ToRegister
+
     register 'b/serialize/csv',                Library::Serialize::Csv
     register 'b/serialize/json',               Library::Serialize::Json
     register 'b/serialize/yaml',               Library::Serialize::Yaml

@@ -39,6 +39,9 @@ require_relative 'library/io/read'
 require_relative 'library/io/row_reader'
 require_relative 'library/io/write'
 
+require_relative 'library/param/from_register'
+require_relative 'library/param/to_register'
+
 require_relative 'library/serialize/csv'
 require_relative 'library/serialize/json'
 require_relative 'library/serialize/yaml'

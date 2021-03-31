@@ -1,3 +1,18 @@
+# 1.8.0 (March 31st, 2021)
+
+Added Jobs:
+
+* b/param/from_register
+* b/param/to_register
+
+Other:
+
+* Payload#param was added to access a param key's value.
+* Payload#update_param was added to update a param key's value.
+
+Internal Notes:
+
+Payload#register and Payload#params data stores have been internally consolidated while still maintaining the same public API surface area.
 
 # 1.7.0 (January 22nd, 2021)
 
