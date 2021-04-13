@@ -1,4 +1,4 @@
-# 1.9.0 (TBD)
+# 1.9.0 (April 13th, 2021)
 
 Added Jobs:
 
