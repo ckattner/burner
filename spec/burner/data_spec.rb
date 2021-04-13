@@ -49,4 +49,18 @@ describe Burner::Data do
       expect(subject[:some_string]).to eq(value)
     end
   end
+
+  describe 'equality' do
+    specify '== compares class type and internal hash' do
+      other = described_class.new(existing)
+
+      expect(subject).to eq(other)
+    end
+
+    specify '#eql compares class type and internal hash' do
+      other = described_class.new(existing)
+
+      expect(subject).to eql(other)
+    end
+  end
 end

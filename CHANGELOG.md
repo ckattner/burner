@@ -1,3 +1,8 @@
+# 1.9.0 (TBD)
+
+Added Jobs:
+
+* b/collection/pivot
 # 1.8.0 (March 31st, 2021)
 
 Added Jobs:

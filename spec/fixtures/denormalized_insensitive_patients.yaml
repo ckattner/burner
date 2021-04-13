@@ -1,0 +1,21 @@
+---
+# Patient Example
+- practice_id: Bozos Healthcare Emporium
+  patient_id: 2
+  first_name: Frank
+  last_name: RIZZO
+  phone_number: 555-555-5555
+
+# Same Practice, Different Patient ID
+- practice_id: Bozos Healthcare Emporium
+  patient_id: 3
+  first_name: Hops
+  last_name: BUNNY
+  phone_number: 777-777-7777
+
+# Different Practice, Same Patient ID
+- practice_id: Rizzos Emergency Care
+  patient_id: 2
+  first_name: Donald
+  last_name: DUCK
+  phone_number: 666-666-6666

@@ -7,6 +7,10 @@
 # LICENSE file in the root directory of this source tree.
 #
 
+def read_yaml_fixture_file(*filename)
+  YAML.safe_load(read_file('spec', 'fixtures', *filename))
+end
+
 def read_yaml_file(*filename)
   YAML.safe_load(read_file(*filename))
 end

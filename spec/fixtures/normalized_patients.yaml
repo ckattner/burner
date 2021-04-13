@@ -1,0 +1,75 @@
+---
+# Patient Example
+- practice_id: Bozos Healthcare Emporium
+  patient_id: 2
+  favorite_doctor: Bart
+  key: first_name
+  value: Frank
+
+- practice_id: Bozos Healthcare Emporium
+  patient_id: 2
+  favorite_doctor: Bart
+  key: last_name
+  value: Rizzo
+
+- practice_id: Bozos Healthcare Emporium
+  patient_id: 2
+  favorite_doctor: Bart
+  key: phone_number
+  value: 555-555-5555
+
+- practice_id: Bozos Healthcare Emporium
+  patient_id: 2
+  favorite_doctor: Bart
+  key: LAST_NAME
+  value: RIZZO
+
+# Same Practice, Different Patient ID
+- practice_id: Bozos Healthcare Emporium
+  patient_id: 3
+  favorite_doctor: Lisa
+  key: first_name
+  value: Hops
+
+- practice_id: Bozos Healthcare Emporium
+  patient_id: 3
+  favorite_doctor: Lisa
+  key: last_name
+  value: Bunny
+
+- practice_id: Bozos Healthcare Emporium
+  patient_id: 3
+  favorite_doctor: Lisa
+  key: phone_number
+  value: 777-777-7777
+
+- practice_id: Bozos Healthcare Emporium
+  patient_id: 3
+  favorite_doctor: Lisa
+  key: LAST_NAME
+  value: BUNNY
+
+# Different Practice, Same Patient ID
+- practice_id: Rizzos Emergency Care
+  patient_id: 2
+  favorite_doctor: Millhouse
+  key: first_name
+  value: Donald
+
+- practice_id: Rizzos Emergency Care
+  patient_id: 2
+  favorite_doctor: Millhouse
+  key: last_name
+  value: Duck
+
+- practice_id: Rizzos Emergency Care
+  patient_id: 2
+  favorite_doctor: Millhouse
+  key: phone_number
+  value: 666-666-6666
+
+- practice_id: Rizzos Emergency Care
+  patient_id: 2
+  favorite_doctor: Millhouse
+  key: LAST_NAME
+  value: DUCK
