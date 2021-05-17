@@ -1,3 +1,8 @@
+# 1.10.0 (May 17th, 2021)
+
+Added Jobs:
+
+* b/collection/only_keys
 # 1.9.0 (April 13th, 2021)
 
 Added Jobs:

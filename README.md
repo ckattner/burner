@@ -271,6 +271,7 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 * **b/collection/nested_aggregate** [register, key_mappings, key, separator]: Traverse a set of objects, resolving key's value for each object, optionally copying down key_mappings to the child records, then merging all the inner records together.
 * **b/collection/number** [key, register, separator, start_at]: This job can iterate over a set of records and sequence them (set the specified key to a sequential index value.)
 * **b/collection/objects_to_arrays** [mappings, register]: Convert an array of objects to an array of arrays.
+* **b/collection/only_keys** [keys_register, register, separator]: Limit an array of objects' keys to a specified set of keys.  These keys can be realized at run-time as they are pulled from another register (keys_register) thus making it dynamic.
 * **b/collection/pivot** [unique_keys, insensitive, other_keys, pivot_key, pivot_value_key, register, separator]:
 Take an array of objects and pivot a key into multiple keys.  It essentially takes all the values for a key and creates N number of keys (one per value.) Under the hood it uses HashMath's [Record](https://github.com/bluemarblepayroll/hash_math#record-the-hash-prototype) and [Table](https://github.com/bluemarblepayroll/hash_math#table-the-double-hash-hash-of-hashes) classes.
 * **b/collection/shift** [amount, register]: Remove the first N number of elements from an array.

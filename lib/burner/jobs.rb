@@ -30,6 +30,7 @@ module Burner
     register 'b/collection/nested_aggregate',  Library::Collection::NestedAggregate
     register 'b/collection/number',            Library::Collection::Number
     register 'b/collection/objects_to_arrays', Library::Collection::ObjectsToArrays
+    register 'b/collection/only_keys',         Library::Collection::OnlyKeys
     register 'b/collection/pivot',             Library::Collection::Pivot
     register 'b/collection/shift',             Library::Collection::Shift
     register 'b/collection/transform',         Library::Collection::Transform
