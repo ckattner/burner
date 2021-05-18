@@ -7,7 +7,7 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-require_relative 'job_with_register'
+require_relative 'job_with_dynamic_keys'
 
 require_relative 'library/echo'
 require_relative 'library/nothing'
@@ -16,6 +16,7 @@ require_relative 'library/sleep'
 require_relative 'library/collection/arrays_to_objects'
 require_relative 'library/collection/coalesce'
 require_relative 'library/collection/concatenate'
+require_relative 'library/collection/flat_file_parse'
 require_relative 'library/collection/graph'
 require_relative 'library/collection/group'
 require_relative 'library/collection/nested_aggregate'

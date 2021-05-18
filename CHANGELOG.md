@@ -1,3 +1,9 @@
+# 1.11.0 (May 17th, 2021)
+
+Added Jobs:
+
+* b/collection/flat_file_parse
+
 # 1.10.0 (May 17th, 2021)
 
 Added Jobs:

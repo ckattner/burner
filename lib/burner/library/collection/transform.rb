@@ -21,8 +21,6 @@ module Burner
       # Expected Payload[register] input: array of objects.
       # Payload[register] output: An array of objects.
       class Transform < JobWithRegister
-        BLANK = ''
-
         attr_reader :attribute_renderers,
                     :exclusive,
                     :resolver

@@ -25,8 +25,9 @@ module Burner
     register 'b/collection/arrays_to_objects', Library::Collection::ArraysToObjects
     register 'b/collection/coalesce',          Library::Collection::Coalesce
     register 'b/collection/concatenate',       Library::Collection::Concatenate
-    register 'b/collection/graph',             Library::Collection::Graph
     register 'b/collection/group',             Library::Collection::Group
+    register 'b/collection/flat_file_parse',   Library::Collection::FlatFileParse
+    register 'b/collection/graph',             Library::Collection::Graph
     register 'b/collection/nested_aggregate',  Library::Collection::NestedAggregate
     register 'b/collection/number',            Library::Collection::Number
     register 'b/collection/objects_to_arrays', Library::Collection::ObjectsToArrays

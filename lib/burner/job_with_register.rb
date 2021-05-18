@@ -13,6 +13,8 @@ module Burner
   # Add on a register attribute to the configuration for a job.  This indicates that a job
   # either accesses and/or mutates the payload's registers.
   class JobWithRegister < Job
+    BLANK = ''
+
     attr_reader :register
 
     def initialize(name: '', register: DEFAULT_REGISTER)

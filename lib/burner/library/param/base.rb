@@ -12,8 +12,6 @@ module Burner
     module Param
       # Common logic shared across Param job subclasses.
       class Base < JobWithRegister
-        BLANK = ''
-
         attr_reader :param_key
 
         def initialize(name: BLANK, param_key: BLANK, register: DEFAULT_REGISTER)

@@ -16,26 +16,7 @@ module Burner
       #
       # Expected Payload[register] input: array of objects.
       # Payload[register] output: An array of objects.
-      class OnlyKeys < JobWithRegister
-        BLANK = ''
-
-        attr_reader :keys_register,
-                    :resolver
-
-        def initialize(
-          keys_register:,
-          name: '',
-          register: DEFAULT_REGISTER,
-          separator: BLANK
-        )
-          super(name: name, register: register)
-
-          @keys_register = keys_register.to_s
-          @resolver      = Objectable.resolver(separator: separator)
-
-          freeze
-        end
-
+      class OnlyKeys < JobWithDynamicKeys
         def perform(output, payload)
           objects = array(payload[register])
           count   = objects.length
