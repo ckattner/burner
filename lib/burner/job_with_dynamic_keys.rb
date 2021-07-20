@@ -26,8 +26,6 @@ module Burner
 
       @keys_register = keys_register.to_s
       @resolver      = Objectable.resolver(separator: separator)
-
-      freeze
     end
   end
 end

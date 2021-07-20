@@ -1,3 +1,9 @@
+# 1.12.0.pre.alpha (TBD)
+
+Enhanced Job:
+
+* b/collection/flat_file_parse now supports key mappings.
+
 # 1.11.0 (May 17th, 2021)
 
 Added Jobs:
