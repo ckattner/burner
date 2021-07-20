@@ -42,17 +42,6 @@ module Burner
       # Expected Payload[register] input: array of arrays.
       # Payload[register] output: An array of hashes.
       class FlatFileParse < JobWithDynamicKeys
-        attr_reader :key_mappings
-
-        def initialize(keys_register:, name: '', register: DEFAULT_REGISTER, separator: BLANK,
-                       key_mappings: [])
-          super(name: name, register: register, keys_register: keys_register, separator: separator)
-
-          @key_mappings = Modeling::KeyMapping.array(key_mappings)
-
-          freeze
-        end
-
         def perform(output, payload)
           objects     = array(payload[register])
           keys        = array(objects.shift)

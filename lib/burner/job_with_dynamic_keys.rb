@@ -13,19 +13,24 @@ module Burner
   # Add on a register attribute to the configuration for a job.  This indicates that a job
   # either accesses and/or mutates the payload's registers.
   class JobWithDynamicKeys < JobWithRegister
-    attr_reader :keys_register,
+    attr_reader :key_mappings,
+                :keys_register,
                 :resolver
 
     def initialize(
       keys_register:,
       name: '',
       register: DEFAULT_REGISTER,
-      separator: BLANK
+      separator: BLANK,
+      key_mappings: []
     )
       super(name: name, register: register)
 
+      @key_mappings  = Modeling::KeyMapping.array(key_mappings)
       @keys_register = keys_register.to_s
       @resolver      = Objectable.resolver(separator: separator)
+
+      freeze
     end
   end
 end
