@@ -30,7 +30,7 @@ module Burner
       #
       # If key mappings are specified:
       # [
-      #  
+      #
       #  {
       #     from: 'first',
       #     to: 'first_name'
