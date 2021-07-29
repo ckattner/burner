@@ -102,11 +102,11 @@ describe Burner::Library::Collection::FlatFileParse do
         expect(payload[register]).to eq(objects)
       end
 
-      it 'sets keys_register to the first array entry' do
-        expect(payload[keys_register]).to eq(%w[id_number first_name last_name middle])
+      it 'sets keys_register to mapped keys only' do
+        expect(payload[keys_register]).to eq(%w[id_number first_name last_name])
       end
 
-      it 'keys register doesn\'t include extra mapped key' do
+      it 'keys register doesn\'t include extra mapped key that is not in the data register' do
         expect(payload[keys_register]).not_to eq(
           %w[id_number first_name last_name middle cell_phone]
         )
@@ -116,10 +116,13 @@ describe Burner::Library::Collection::FlatFileParse do
         expect(string_out.string).to include('Mapping 2 array(s)')
       end
 
-      it 'outputs keys' do
+      it 'outputs mapped keys from keys register' do
         expect(string_out.string).to include('first_name')
         expect(string_out.string).to include('last_name')
         expect(string_out.string).to include('id_number')
+      end
+
+      it 'outputs unmapped keys in register' do
         expect(string_out.string).to include('middle')
       end
     end

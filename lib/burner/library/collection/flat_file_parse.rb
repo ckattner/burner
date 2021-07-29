@@ -11,8 +11,10 @@ module Burner
   module Library
     module Collection
       # Convert an array of arrays to an array of objects.  The difference between this
-      # job and ArraysToObjects is that this one does not take in mappings and instead
+      # job and ArraysToObjects is that this one does not require mappings and instead
       # will use the first entry as the array of keys to positionally map to.
+      # If key mappings are specified then the keys register will only contain
+      # the keys that are mapped. The register will still contain mapped and unmapped keys.
       #
       # For example, if a register had this:
       #
@@ -28,16 +30,21 @@ module Burner
       #
       # If key mappings are specified:
       # [
+      #  
       #  {
       #     from: 'first',
       #     to: 'first_name'
+      #  }
+      #  {
+      #     from: 'iban',
+      #     to: 'iban_number'
       #  }
       # ]
       # Then the register will now be:
       #   [{ 'id' => 1, 'first_name' => frank, 'last' => rizzo }]
       #
       # And the keys_register will now contain:
-      #   ['id', 'first_name', 'last']
+      #   [['first_name', last_name], ['iban_number]]
       #
       # Expected Payload[register] input: array of arrays.
       # Payload[register] output: An array of hashes.
@@ -48,29 +55,59 @@ module Burner
           count       = objects.length
           mapped_keys = update_keys_using_mappings(keys, output)
 
-          output.detail("Mapping #{count} array(s) to key(s): #{mapped_keys.join(', ')}")
+          payload[register]      = objects.map { |object| transform(object, mapped_keys, output) }
+          payload[keys_register] = get_mapped_keys(mapped_keys)
 
-          payload[register]      = objects.map { |object| transform(object, mapped_keys) }
-          payload[keys_register] = mapped_keys
+          output.detail("Mapping #{count} array(s)")
+
+          output.detail("Mapping keys register array to: #{payload[keys_register].join(', ')}")
         end
 
         private
 
-        def transform(object, keys)
+        def transform(object, keys, output)
           object.each_with_object({}).with_index do |(value, memo), index|
             next if index >= keys.length
 
-            key = keys[index]
+            key = keys[index][:unmapped_key_name]
+
+            mapped_key = keys[index][:mapped_key_name]
+
+            key = mapped_key if mapped_key
 
             resolver.set(memo, key, value)
+
+            output.detail("Using key #{key}")
           end
+        end
+
+        def get_mapped_keys(mapped_keys)
+          keys = []
+
+          mapped_keys.each do |mapped_key_hash|
+            mapped_key = mapped_key_hash[:mapped_key_name]
+
+            keys.push(mapped_key) if mapped_key
+          end
+
+          keys
         end
 
         def update_keys_using_mappings(keys, output)
           updated_keys = []
 
           keys.each do |key|
-            updated_keys.push(find_key_name_to_use_from_mappings(key, output))
+            if key_mappings.count.positive?
+              mapped_key_name = find_key_name_to_use_from_mappings(key, output)
+
+              key_hash = { unmapped_key_name: key, mapped_key_name: mapped_key_name }
+
+              key_hash[:mapped_key_name] = nil if key == mapped_key_name
+            else
+              key_hash = { unmapped_key_name: key, mapped_key_name: key }
+            end
+
+            updated_keys.push(key_hash)
           end
 
           updated_keys
