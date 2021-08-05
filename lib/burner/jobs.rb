@@ -33,9 +33,11 @@ module Burner
     register 'b/collection/objects_to_arrays', Library::Collection::ObjectsToArrays
     register 'b/collection/only_keys',         Library::Collection::OnlyKeys
     register 'b/collection/pivot',             Library::Collection::Pivot
+    register 'b/collection/prepend',           Library::Collection::Unshift
     register 'b/collection/shift',             Library::Collection::Shift
     register 'b/collection/transform',         Library::Collection::Transform
     register 'b/collection/unpivot',           Library::Collection::Unpivot
+    register 'b/collection/unshift',           Library::Collection::Unshift
     register 'b/collection/values',            Library::Collection::Values
     register 'b/collection/validate',          Library::Collection::Validate
     register 'b/collection/zip',               Library::Collection::Zip
