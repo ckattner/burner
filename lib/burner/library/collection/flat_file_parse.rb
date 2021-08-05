@@ -44,10 +44,15 @@ module Burner
       #   [{ 'id' => 1, 'first_name' => frank, 'last' => rizzo }]
       #
       # And the keys_register will now contain:
-      #   [['first_name', last_name], ['iban_number]]
+      #   ['first_name']
+      #
+      # Since 'last' did not have a key mapping entry it does not exist in the keys register.
+      # In addition, even though 'iban' does have a key mapping it does not exist in the
+      # register's payload, so it also does not exist in the keys register.
       #
       # Expected Payload[register] input: array of arrays.
       # Payload[register] output: An array of hashes.
+      # Payload[keys_register] output; An array of key names.
       class FlatFileParse < JobWithDynamicKeys
         def perform(output, payload)
           objects     = array(payload[register])
