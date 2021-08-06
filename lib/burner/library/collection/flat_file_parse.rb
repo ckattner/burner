@@ -101,23 +101,41 @@ module Burner
         end
 
         def update_keys_using_mappings(keys, output)
-          updated_keys = []
+          if key_mappings.count.positive?
+            populate_key_hashes_from_mappings(keys, output)
+          else
+            populate_key_hashes_without_mappings(keys)
+          end
+        end
+
+        def populate_key_hashes_from_mappings(keys, output)
+          key_hashes = []
 
           keys.each do |key|
-            if key_mappings.count.positive?
-              mapped_key_name = find_key_name_to_use_from_mappings(key, output)
+            mapped_key_name = find_key_name_to_use_from_mappings(key, output)
 
-              key_hash = { unmapped_key_name: key, mapped_key_name: mapped_key_name }
+            mapped_key_name = nil if key == mapped_key_name
 
-              key_hash[:mapped_key_name] = nil if key == mapped_key_name
-            else
-              key_hash = { unmapped_key_name: key, mapped_key_name: key }
-            end
+            key_hash = create_key_hash(key, mapped_key_name)
 
-            updated_keys.push(key_hash)
+            key_hashes.push(key_hash)
           end
 
-          updated_keys
+          key_hashes
+        end
+
+        def populate_key_hashes_without_mappings(keys)
+          key_hashes = []
+
+          keys.each do |key|
+            key_hashes.push(create_key_hash(key, key))
+          end
+
+          key_hashes
+        end
+
+        def create_key_hash(unmapped_key_name, mapped_key_name)
+          { unmapped_key_name: unmapped_key_name, mapped_key_name: mapped_key_name }
         end
 
         def find_key_name_to_use_from_mappings(key, output)
@@ -126,12 +144,16 @@ module Burner
           key_mappings.each do |key_mapping|
             next unless key_mapping.from.downcase == key.downcase
 
-            key_to_use = key_mapping.to unless key_mapping.to.empty?
+            key_to_use = populate_key_to_use(key_mapping)
             output.detail("Using key_mapping from key #{key} to #{key_to_use}")
             break
           end
 
           key_to_use
+        end
+
+        def populate_key_to_use(key_mapping)
+          key_mapping.to unless key_mapping.to.empty?
         end
       end
     end
