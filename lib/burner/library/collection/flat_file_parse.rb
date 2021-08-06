@@ -74,9 +74,11 @@ module Burner
           object.each_with_object({}).with_index do |(value, memo), index|
             next if index >= keys.length
 
-            key = keys[index][:unmapped_key_name]
+            key_hash = keys[index]
 
-            mapped_key = keys[index][:mapped_key_name]
+            key = key_hash[:unmapped_key_name]
+
+            mapped_key = key_hash[:mapped_key_name]
 
             key = mapped_key if mapped_key
 
