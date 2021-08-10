@@ -24,7 +24,7 @@ module Burner
           super(name: name, register: register)
 
           @from_registers = Array(from_registers)
-          
+
           freeze
         end
 
