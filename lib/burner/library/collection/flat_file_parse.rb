@@ -89,15 +89,11 @@ module Burner
         end
 
         def get_mapped_keys(mapped_keys)
-          keys = []
-
-          mapped_keys.each do |mapped_key_hash|
+          mapped_keys.each_with_object([]) do |mapped_key_hash, memo|
             mapped_key = mapped_key_hash[:mapped_key_name]
 
-            keys.push(mapped_key) if mapped_key
+            memo << mapped_key if mapped_key
           end
-
-          keys
         end
 
         def update_keys_using_mappings(keys, output)
@@ -109,29 +105,19 @@ module Burner
         end
 
         def populate_key_hashes_from_mappings(keys, output)
-          key_hashes = []
-
-          keys.each do |key|
+          keys.each_with_object([]) do |key, memo|
             mapped_key_name = find_key_name_to_use_from_mappings(key, output)
 
             mapped_key_name = nil if key == mapped_key_name
 
-            key_hash = create_key_hash(key, mapped_key_name)
-
-            key_hashes.push(key_hash)
+            memo << create_key_hash(key, mapped_key_name)
           end
-
-          key_hashes
         end
 
         def populate_key_hashes_without_mappings(keys)
-          key_hashes = []
-
-          keys.each do |key|
-            key_hashes.push(create_key_hash(key, key))
+          keys.each_with_object([]) do |key, memo|
+            memo << create_key_hash(key, key)
           end
-
-          key_hashes
         end
 
         def create_key_hash(unmapped_key_name, mapped_key_name)

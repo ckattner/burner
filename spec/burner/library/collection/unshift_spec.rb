@@ -35,7 +35,7 @@ describe Burner::Library::Collection::Unshift do
   describe '#perform' do
     subject do
       described_class.make(name: 'test', from_registers: [from_register_a],
-                           to_register: register)
+                           register: register)
     end
 
     context 'when adding an array' do
@@ -55,7 +55,7 @@ describe Burner::Library::Collection::Unshift do
   describe '#perform' do
     subject do
       described_class.make(name: 'test', from_registers: [from_register_b],
-                           to_register: register)
+                           register: register)
     end
 
     context 'when adding a number' do
@@ -72,7 +72,7 @@ describe Burner::Library::Collection::Unshift do
   describe '#perform' do
     subject do
       described_class.make(name: 'test', from_registers: [from_register_c],
-                           to_register: register)
+                           register: register)
     end
 
     context 'when adding a string' do
@@ -87,7 +87,7 @@ describe Burner::Library::Collection::Unshift do
   end
 
   describe '#perform' do
-    subject { described_class.make(name: 'test', to_register: register) }
+    subject { described_class.make(name: 'test', register: register) }
 
     context 'when adding no from_registers' do
       it 'nothing is prepended to the array of arrays' do

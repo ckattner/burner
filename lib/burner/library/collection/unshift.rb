@@ -11,33 +11,32 @@ module Burner
   module Library
     module Collection
       # Adds the values of the from_registers to the to_register array.
-      # All existing elements in the to_register array will be shifted upwards.
+      # All existing elements in the register array will be shifted upwards.
       #
       # Expected Payload[from_registers] input: Array containing names of registers
       # whose values to prepend.
-      # Payload[to_register] output: An array with the from_registers'
+      # Payload[register] output: An array with the from_registers'
       # payload added to the beginning.
       class Unshift < JobWithRegister
-        attr_reader :from_registers, :to_register
+        attr_reader :from_registers
 
-        def initialize(from_registers: [], name: '', to_register: DEFAULT_REGISTER)
-          super(name: name, register: to_register)
+        def initialize(from_registers: [], name: '', register: DEFAULT_REGISTER)
+          super(name: name, register: register)
 
           @from_registers = Array(from_registers)
-          @to_register    = to_register.to_s
-
+          
           freeze
         end
 
         def perform(output, payload)
-          output.detail("Prepending registers: '#{from_registers}' to: '#{to_register}'")
+          output.detail("Prepending registers: '#{from_registers}' to: '#{register}'")
 
-          register = array(payload[to_register])
+          payload_register = array(payload[register])
 
           from_registers.each do |from_register|
             from_register_value = payload[from_register]
 
-            register.unshift(from_register_value)
+            payload_register.unshift(from_register_value)
           end
         end
       end
