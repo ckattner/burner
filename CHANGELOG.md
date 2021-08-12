@@ -1,3 +1,14 @@
+# 1.12.0 (August 12th, 2021)
+
+Enhanced Job:
+
+* b/collection/flat_file_parse now supports key mappings.
+
+Added Jobs:
+
+* b/collection/prepend (alias for unshift)
+* b/collection/unshift
+
 # 1.11.0 (May 17th, 2021)
 
 Added Jobs:
