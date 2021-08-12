@@ -1,4 +1,4 @@
-# 1.12.0 (TBD)
+# 1.12.0 (August 12th, 2021)
 
 Enhanced Job:
 
